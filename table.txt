@@ -1,0 +1,11 @@
+(a)	
+USER: loginname, username, password, say, hometown, interests, creditcard
+PROJECT: projectname, username, description, status
+TAG: projectname, tagname
+COMMENT: username, projectname, date, content
+MATERIAL: projectname, material_content
+RATE: projectname, username, score, date
+PLEDGE: username, projectname, amount, date, status
+CHARGE: username, projectname, amount, date, creditcard
+LIKE: username, projectname
+FOLLOW: username_F, username_BF
