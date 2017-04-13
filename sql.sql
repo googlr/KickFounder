@@ -24,8 +24,8 @@ CREATE TABLE `PROJECT` (
   `loginname` varchar(40) NOT NULL,
   `description` varchar(4096) NOT NULL,
   `projectstatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
-  `minfund` float DEFAULT NULL,
-  `maxfund` float DEFAULT NULL,
+  `minfund` decimal(10,2) DEFAULT NULL,
+  `maxfund` decimal(10,2) DEFAULT NULL,
   `posttime` DATETIME DEFAULT NULL,
   `endtime` DATETIME DEFAULT NULL,
   `plantime` DATETIME DEFAULT NULL,
@@ -87,11 +87,25 @@ CREATE TABLE `PLEDGE` (
   `projectname` varchar(100) NOT NULL,
   `pledgetime` DATETIME NOT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
-  `chargestatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
+  #`chargestatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
+  PRIMARY KEY (`projectname`, `loginname`,`pledgetime`),
+  FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`),
+  FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
+);
+
+# CHARGE: loginname, projectname, chargetime, totalamount, creditcard
+DROP TABLE IF EXISTS `CHARGE`;
+CREATE TABLE `CHARGE` (
+  `loginname` varchar(40) NOT NULL,
+  `projectname` varchar(100) NOT NULL,
+  `chargetime` DATETIME NOT NULL,
+  `totalamount` decimal(10,2) DEFAULT NULL,
+  `creditcard` varchar(40) NOT NULL,
   PRIMARY KEY (`projectname`, `loginname`),
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`),
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
 );
+
 # LIKE: loginname, projectname
 DROP TABLE IF EXISTS `LIKE`;
 CREATE TABLE `LIKE` (
