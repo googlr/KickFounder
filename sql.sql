@@ -87,7 +87,7 @@ CREATE TABLE `PLEDGE` (
   `projectname` varchar(100) NOT NULL,
   `pledgetime` DATETIME NOT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
-  `chargestatus` varchar(20) NOT NULL,
+  `chargestatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
   PRIMARY KEY (`projectname`, `loginname`),
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`),
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
