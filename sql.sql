@@ -23,7 +23,7 @@ CREATE TABLE `PROJECT` (
   `projectname` varchar(100) NOT NULL,
   `loginname` varchar(40) NOT NULL,
   `description` varchar(4096) NOT NULL,
-  `status` varchar(20) NOT NULL,
+  `projectstatus` varchar(20) NOT NULL,
   `minfund` float DEFAULT NULL,
   `maxfund` float DEFAULT NULL,
   `posttime` DATETIME DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE `TAG` (
 # COMMENT: username, projectname, commmenttime, content
 DROP TABLE IF EXISTS `COMMENT`;
 
-CREATE TABLE `COMMENT` (
+CREATE TABLE `DISCUSS` (
   `projectname` varchar(100) NOT NULL,
   `loginname` varchar(40) NOT NULL,
   `commenttime` DATETIME NOT NULL,

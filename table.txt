@@ -1,5 +1,5 @@
 (a)	
-USER: loginname, username, password, say, hometown, interests, creditcard
+# USER(loginname, username, password, say, hometown, interests, creditcard
 PROJECT: projectname, username, description, status
 TAG: projectname, tagname
 COMMENT: username, projectname, date, content
