@@ -6,7 +6,7 @@ INSERT INTO `USER` VALUES('CaptainAmerican','Steve Rogers','lovepeggy','I can do
 INSERT INTO `USER` VALUES('DeadPool','Wade Wilson','deadpool','Screw the heros','Canada','Porn','3333 3333 3333 3333');
 
 # PROJECT
-INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Great song', 'johnth1@gmail.com', 'I want produce a jazz, do you like that?', 'ongoing', 200, 300, '2017-03-12 12:10:29', '2017-05-12 12:10:29', '2017-09-13 12:10:29');
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Great song', 'johnth1@gmail.com', 'I want produce a jazz, do you like that?', 'ongoing', 500, 800, '2017-03-12 12:10:29', '2017-05-12 12:10:29', '2017-09-13 12:10:29');
 INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Good Music', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'ongoing', 300, 400, '2017-03-11 12:10:29', '2017-05-11 12:10:29', '2017-10-13 12:10:29');
 INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Good Music2', 'DeadPool', 'Jazz is my life! Come on, let dance.', 'ongoing', 304, 4060, '2017-03-15 12:10:29', '2017-04-11 12:16:29', '2017-11-13 12:10:29');
 INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Music part1', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'complete', 340, 440, '2017-03-13 12:10:29', '2017-05-13 12:10:29', '2017-10-14 12:10:29');
