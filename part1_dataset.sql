@@ -51,3 +51,16 @@ INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Good Music', '2017-04-01 15:1
 INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part1', '2017-04-01 16:10:29', 100);
 INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part2', '2017-04-01 17:10:29', 100);
 INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part3', '2017-04-01 18:10:29', 100);
+
+# FOLLOW
+# FOLLOW
+INSERT INTO `FOLLOW` VALUES('BobInBrooklyn', 'AllenShow');
+INSERT INTO `FOLLOW` VALUES('BobInBrooklyn', 'CaptainAmerican');
+INSERT INTO `FOLLOW` VALUES('BobInBrooklyn', 'DeadPool');
+INSERT INTO `FOLLOW` VALUES('BobInBrooklyn', 'johnth1@gmail.com');
+INSERT INTO `FOLLOW` VALUES('AllenShow','BobInBrooklyn');
+INSERT INTO `FOLLOW` VALUES('AllenShow', 'DeadPool');
+INSERT INTO `FOLLOW` VALUES('AllenShow', 'CaptainAmerican');
+INSERT INTO `FOLLOW` VALUES('CaptainAmerican', 'AllenShow');
+INSERT INTO `FOLLOW` VALUES('CaptainAmerican', 'DeadPool');
+INSERT INTO `FOLLOW` VALUES('DeadPool', 'AllenShow');
