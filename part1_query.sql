@@ -51,4 +51,43 @@ END IF;
 END; //
 delimiter ;
 
+DELIMITER |
+
+DROP PROCEDURE IF EXISTS e_test |
+CREATE PROCEDURE e_test()
+
+    BEGIN
+    DECLARE i INT DEFAULT 1;# can not be 0 
+    WHILE i <= (SELECT COUNT(*) FROM PROJECT WHERE NOW() > endtime ORDER BY projectname)
+    DO 
+
+	IF (SELECT SUM(amount) FROM PLEDGE WHERE projectname=(SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1)) >= (SELECT minfund FROM PROJECT WHERE PROJECT.projectname=(SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1)) THEN
+       UPDATE PROJECT SET projectstatus='successed' WHERE projectname=(SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1);
+       INSERT INTO `CHARGE` VALUE ((SELECT loginname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1), 
+            (SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1), NOW(),
+           (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1)), (SELECT creditcard FROM USER WHERE USER.loginname=(SELECT loginname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1)));
+
+    ELSE
+		UPDATE PROJECT SET projectstatus='failed' WHERE PLEDGE.projectname=SELECT projectname FROM PROJECT WHERE NOW() > endtime ORDER BY projectname LIMIT i-1, 1);
+	END IF;
+    SET i=i+1;
+    END WHILE ; 
+    END
+
+|
+
+SET GLOBAL event_scheduler = 1; |
+CREATE EVENT IF NOT EXISTS event_test
+
+ON SCHEDULE EVERY 1 SECOND
+
+ON COMPLETION PRESERVE  
+
+DO CALL e_test();
+|
+ALTER EVENT event_test ON  
+
+COMPLETION PRESERVE ENABLE; 
+|
+
 
