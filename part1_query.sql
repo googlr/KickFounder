@@ -4,7 +4,7 @@ USE kickfounder;
 INSERT INTO `USER`(`loginname`, `username`, `password`) VALUES ('johnth1@gmail.com', 'John Wu', '12345678');
 # SELECT * FROM USER;
 # 2
-SELECT loginname FROM PROJECT
+SELECT projectname FROM PROJECT
 WHERE projectstatus="ongoing"
 AND description LIKE "%jazz%"
 ORDER BY posttime DESC;
