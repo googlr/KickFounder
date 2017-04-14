@@ -41,3 +41,13 @@ INSERT INTO `DISCUSS` VALUES('Music part1','AllenShow','2017-04-13 14:10:29','It
 INSERT INTO `DISCUSS` VALUES('Music part1','DeadPool','2017-04-17 13:13:29','Why kate perry is still single? soooo sad');
 INSERT INTO `DISCUSS` VALUES('Music part2','CaptainAmerican','2017-03-14 12:15:37','Go, Brooklyn boys, go');
 INSERT INTO `DISCUSS` VALUES('Music part2','AllenShow','2017-03-18 19:35:00','Master Piece, like always');
+
+#PLEDGE
+SET SQL_SAFE_UPDATES=0; 
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Great song', '2017-04-01 12:10:29', 100);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Great song', '2017-04-01 13:10:29', 200);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Great song', '2017-04-01 14:10:29', 800);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Good Music', '2017-04-01 15:10:29', 700);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part1', '2017-04-01 16:10:29', 100);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part2', '2017-04-01 17:10:29', 100);
+INSERT INTO `PLEDGE` VALUES ('johnth1@gmail.com', 'Music part3', '2017-04-01 18:10:29', 100);
