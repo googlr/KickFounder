@@ -23,7 +23,7 @@ CREATE TABLE `PROJECT` (
   `projectname` varchar(100) NOT NULL,
   `loginname` varchar(40) NOT NULL,
   `description` varchar(4096) NOT NULL,
-  `projectstatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
+  `projectstatus` varchar(20) NOT NULL,	#ongoing, succeed, failed, completed
   `minfund` decimal(10,2) DEFAULT NULL,
   `maxfund` decimal(10,2) DEFAULT NULL,
   `posttime` DATETIME DEFAULT NULL,
