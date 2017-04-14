@@ -80,7 +80,7 @@ CREATE TABLE `RATE` (
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
 );
 
-# PLEDGE: loginname, projectname, amount, pledgetime, chargestatus
+# PLEDGE: loginname, projectname, amount, pledgetime
 DROP TABLE IF EXISTS `PLEDGE`;
 CREATE TABLE `PLEDGE` (
   `loginname` varchar(40) NOT NULL,
