@@ -43,8 +43,8 @@ INSERT INTO PLEDGE(`loginname`, `projectname`, `amount`, `pledgetime`, chargesta
 delimiter //
 CREATE TRIGGER charge_trigger AFTER INSERT ON PLEDGE
 FOR EACH ROW BEGIN
-IF (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname) > (SELECT maxfund FROM PROJECT WHERE PROJECT.projectname=NEW.projectname) THEN
-	UPDATE PROJECT SET projectstatus='successed';
+IF (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname) >= (SELECT maxfund FROM PROJECT WHERE PROJECT.projectname=NEW.projectname) THEN
+	UPDATE PROJECT SET projectstatus='successed' WHERE PROJECT.projectname=NEW.projectname;
     INSERT INTO `CHARGE` VALUE (NEW.loginname, NEW.projectname, NOW(),
     (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname), (SELECT creditcard FROM USER WHERE USER.loginname=NEW.loginname));
 END IF;
