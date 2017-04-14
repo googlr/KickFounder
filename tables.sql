@@ -43,8 +43,8 @@ CREATE TABLE `TAG` (
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`)
 );
 
-# COMMENT: username, projectname, commmenttime, content
-DROP TABLE IF EXISTS `COMMENT`;
+# DISCUSS: username, projectname, commmenttime, content
+DROP TABLE IF EXISTS `DISCUSS`;
 
 CREATE TABLE `DISCUSS` (
   `projectname` varchar(100) NOT NULL,
