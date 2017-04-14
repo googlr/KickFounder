@@ -4,3 +4,10 @@ INSERT INTO `USER` VALUES('AllenShow','Allen Degenerous','hi5allen','Gay pride, 
 INSERT INTO `USER` VALUES('CaptainAmerican','Steve Rogers','lovepeggy','I can do this all day','Brooklyn','Dancing','6666 6666 6666 6666');
 INSERT INTO `USER` VALUES('DeadPool','Wade Wilson','deadpool','Screw the heros','Canada','Porn','3333 3333 3333 3333');
 
+
+# PROJECT
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Great song', 'johnth1@gmail.com', 'I want produce a jazz, do you like that?', 'ongoing', 200, 300, '2017-03-12 12:10:29', '2017-05-12 12:10:29', '2017-09-13 12:10:29');
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Good Music', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'ongoing', 300, 400, '2017-03-11 12:10:29', '2017-05-11 12:10:29', '2017-10-13 12:10:29');
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Music part1', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'ongoing', 340, 440, '2017-03-13 12:10:29', '2017-05-13 12:10:29', '2017-10-14 12:10:29');
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Music part2', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'ongoing', 400, 500, '2017-03-14 12:10:29', '2017-05-14 12:10:29', '2017-10-15 12:10:29');
+INSERT INTO `PROJECT`(`projectname`, `loginname`, `description`, `projectstatus`, `minfund`, `maxfund`, `posttime`, `endtime`, `plantime`) VALUES ('Music part3', 'BobInBrooklyn', 'Jazz is my life! Come on, let dance.', 'ongoing', 500, 600, '2017-04-15 12:10:29', '2017-05-15 12:10:29', '2017-10-16 12:10:29');
