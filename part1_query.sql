@@ -46,8 +46,9 @@ FOR EACH ROW BEGIN
 IF (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname) > (SELECT maxfund FROM PROJECT WHERE PROJECT.projectname=NEW.projectname) THEN
 	UPDATE PROJECT SET projectstatus='successed';
     INSERT INTO `CHARGE` VALUE (NEW.loginname, NEW.projectname, NOW(),
-    (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname), (SELECT creditcard FROM USER WHERE USER.name=NEW.loginname));
+    (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname), (SELECT creditcard FROM USER WHERE USER.loginname=NEW.loginname));
 END IF;
 END; //
 delimiter ;
+
 
