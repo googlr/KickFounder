@@ -17,9 +17,10 @@ HAVING pl.chargestatus = 'succeed' AND tag.tagname = 'jazz';
 # 4
 SELECT loginname FROM PROJECT
 WHERE projectname IN (
-SELECT projectname
-FROM RATE
-GROUP BY projectname
+SELECT PROJECT.projectname
+FROM RATE, PROJECT
+WHERE projectstatus="complete" AND PROJECT.projectname=RATE.projectname
+GROUP BY PROJECT.projectname
 HAVING AVG(score) >= 4
 )
 GROUP BY loginname
