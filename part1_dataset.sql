@@ -29,3 +29,15 @@ INSERT INTO `TAG` VALUES('Music part2','jazz');
 INSERT INTO `TAG` VALUES('Music part2','music');
 INSERT INTO `TAG` VALUES('Music part3','jazz');
 INSERT INTO `TAG` VALUES('Music part3','music');
+
+# DISCUSS
+INSERT INTO `DISCUSS` VALUES('Great song','johnth1@gmail.com','2017-03-12 12:11:00','Voice from heaven, thank you for your support');
+INSERT INTO `DISCUSS` VALUES('Great song','AllenShow','2017-03-12 12:12:12','First one to comment LOL');
+INSERT INTO `DISCUSS` VALUES('Great song','DeadPool','2017-03-15 17:12:00','I hate loud music');
+INSERT INTO `DISCUSS` VALUES('Good Music','BobInBrooklyn','2017-03-11 13:10:45','Jazz you have never heard before, you can not miss it');
+INSERT INTO `DISCUSS` VALUES('Good Music','CaptainAmerican','2017-03-15 17:10:45','Yo~ bro, we are brooklyn boys');
+INSERT INTO `DISCUSS` VALUES('Music part1','BobInBrooklyn','2017-03-13 13:10:29','Here comes BobInBrooklyn, Let us rock together');
+INSERT INTO `DISCUSS` VALUES('Music part1','AllenShow','2017-04-13 14:10:29','It is gona to be HUGE');
+INSERT INTO `DISCUSS` VALUES('Music part1','DeadPool','2017-04-17 13:13:29','Why kate perry is still single? soooo sad');
+INSERT INTO `DISCUSS` VALUES('Music part2','CaptainAmerican','2017-03-14 12:15:37','Go, Brooklyn boys, go');
+INSERT INTO `DISCUSS` VALUES('Music part2','AllenShow','2017-03-18 19:35:00','Master Piece, like always');
