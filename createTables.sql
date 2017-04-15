@@ -115,7 +115,7 @@ CREATE TABLE `LIKE` (
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`),
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
 );
-# FOLLOW: username_F, username_BF
+# FOLLOW: fname, bfname
 DROP TABLE IF EXISTS `FOLLOW`;
 CREATE TABLE `FOLLOW` (
   `fname` varchar(40) NOT NULL,
