@@ -93,4 +93,25 @@ ALTER EVENT event_test ON
 COMPLETION PRESERVE ENABLE; 
 |
 
+# NEW
+UPDATE PROJECT SET projectstatus = 'succeed' 
+    WHERE projectstatus="ongoing" AND
+    NOW()>=endtime AND
+    (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=Project.projectname) >= Project.minfund
+;
 
+UPDATE PROJECT SET projectstatus = 'failed' 
+    WHERE projectstatus="ongoing" AND
+    NOW()>=endtime AND
+    (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=Project.projectname) < Project.minfund
+;
+
+delimiter //
+CREATE TRIGGER charge_trigger AFTER UPDATE ON PROJECT
+FOR EACH ROW BEGIN
+IF (SELECT projectstatus FROM PROJECT WHERE PROJECT.projectname=NEW.projectname) = 'succeed' THEN
+    INSERT INTO `CHARGE` VALUE (NEW.loginname, NEW.projectname, NOW(),
+    (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=NEW.projectname), (SELECT creditcard FROM USER WHERE USER.loginname=NEW.loginname));
+END IF;
+END; //
+delimiter ;
