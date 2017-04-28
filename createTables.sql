@@ -23,7 +23,7 @@ CREATE TABLE `PROJECT` (
   `projectname` varchar(100) NOT NULL,
   `loginname` varchar(40) NOT NULL,
   `description` varchar(4096) NOT NULL,
-  `projectstatus` varchar(20) NOT NULL,	#ongoing, succeed, failed
+  `projectstatus` varchar(20) NOT NULL,	#ongoing, succeed, failed, completed
   `minfund` decimal(10,2) DEFAULT NULL,
   `maxfund` decimal(10,2) DEFAULT NULL,
   `posttime` DATETIME DEFAULT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE `TAG` (
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`)
 );
 
-# COMMENT: username, projectname, commmenttime, content
-DROP TABLE IF EXISTS `COMMENT`;
+# DISCUSS: loginname, projectname, commmenttime, content
+DROP TABLE IF EXISTS `DISCUSS`;
 
 CREATE TABLE `DISCUSS` (
   `projectname` varchar(100) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `RATE` (
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
 );
 
-# PLEDGE: loginname, projectname, amount, pledgetime, chargestatus
+# PLEDGE: loginname, projectname, amount, pledgetime
 DROP TABLE IF EXISTS `PLEDGE`;
 CREATE TABLE `PLEDGE` (
   `loginname` varchar(40) NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE `LIKE` (
   FOREIGN KEY (`projectname`) REFERENCES `PROJECT` (`projectname`),
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
 );
-# FOLLOW: username_F, username_BF
+# FOLLOW: fname, bfname
 DROP TABLE IF EXISTS `FOLLOW`;
 CREATE TABLE `FOLLOW` (
   `fname` varchar(40) NOT NULL,
@@ -125,3 +125,13 @@ CREATE TABLE `FOLLOW` (
   FOREIGN KEY (`bfname`) REFERENCES `USER` (`loginname`)
 );
 
+# USERACT: loginname, acttime, acttype, actvalue
+DROP TABLE IF EXISTS `USERACT`;
+CREATE TABLE `USERACT` (
+  `loginname` varchar(40) NOT NULL,
+  `acttime` DATETIME NOT NULL,
+  `acttype` varchar(40) NOT NULL, # tag, search, project
+  `actvalue` varchar(60) NOT NULL,
+  PRIMARY KEY (`loginname`, `acttime`),
+  FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
+);
