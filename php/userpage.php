@@ -12,21 +12,35 @@
 		if ($con->connect_error) {
 			die("Database connect_error: " . $con->connect_error);
 		}
+		// User Information
+		$user_sql = "SELECT * FROM USER WHERE loginname=\"".$_GET['uloginname']."\"";
+		$user_result = $con->query($user_sql);
+		if ($user_result->num_rows > 0) {
+			while($row = $user_result->fetch_assoc()) {
+
+				echo "<p>Username: ".$row["username"]."</p>";
+				echo "<p>".$row["say"]."</p>";
+			}
+		}
 		//check if user already followed
 		$follow_check_sql = "SELECT * FROM FOLLOW WHERE bfname=\"".$_GET['uloginname']."\" AND fname=\"".$_SESSION["loginname"]."\"";
 		$follow_result = $con->query($follow_check_sql);
 		if ($follow_result->num_rows < 1) {
-			echo "Follow Me?";
-			echo "<p><a href='follownow.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Follow!\"></input></a></p>";
+			echo "<p><a id = 'foll' href='follownow.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Follow!\"></input></a></p>";
 		}
 		else {
-			echo "Following";
-			echo "<p><a href='unfollow.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Unfollow!\"></input></a></p>";
+			echo "<p><a id = 'foll' href='unfollow.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Unfollow!\"></input></a></p>";
 			
 		}
-		echo $_GET['uloginname'];
 		
 		
 	?>
 	</body>
+	<style>
+		#foll{
+			position:fixed;
+			right:100px;
+			top:100px;
+			} 
+	</style>
 </html>
