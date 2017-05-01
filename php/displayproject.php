@@ -34,8 +34,13 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     echo $row."<br />";
     //if user is owner of project, display upload option
     if($loginname == $row['loginname']){
-          $upload_button = "<form action = \"newupload.php\" method = \"POST\">
-                              <input type = \"submit\" name = \"Upload\">
+          $upload_button = "<form action=\"new_upload_file.php\" method=\"post\"                    >
+                              <label for=\"file\">Filename:</label>
+                              <input type=\"file\" name=\"file\" id=\"file\" /> 
+                              <br />
+                              Material Description:<br>
+                              <input type=\"text\" name=\"matdes\">
+                              <input type=\"submit\" name=\"submit\" value=\"Submit\"/>
                             </form>";
           echo $upload."<br>";
     }
@@ -50,6 +55,7 @@ $result_display_comment = mysql_query($sql_display_comment, $con);
 while ($row_comment = mysql_fetch_array($result_display_project)) {
     echo $row_comment."<br />";
     //TO_DO add button to lick to user
+    echo "<p><a href='userpage.php?uloginname=".$row_comment["loginname"]."'></p>";
   }
 
 mysql_close($con);
