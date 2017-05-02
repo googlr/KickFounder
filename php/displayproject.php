@@ -1,6 +1,5 @@
 <?php 
 session_start();
-echo "SESSION START!"; 
 ?>
 
 <!DOCTYPE html>
@@ -37,10 +36,10 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 	
 	
 	
-	   //---------------------------- UPDATE ---------------------------
+	
     //if user is owner of project, display upload option
     if($loginname == $row['loginname']){
-      $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
+          $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
                               <label for=\"file\">Filename < 20M:</label>
                               <input type=\"file\" name=\"file\" /> 
                               <br />
@@ -49,20 +48,28 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                               <input type=\"submit\" name=\"submit\" value=\"Submit\"/>
                             </form>";
           echo $upload_button."<br>";
-    } else {
-      //--------------------------- PLEDGE ---------------------------
-      //user is not owner, then he or she can pledge the project
-      $pledge_button = "<form action=\"new_pledge.php\" method=\"POST\">
-        <input type=\"number\" name=\"amount\">
-        <input type=\"submit\" name=\"submit\" value=\"pledge\">
-        ";
-      echo $pledge_button."<br>";
     }
   }
 }
-//
+// Pledge
+echo "<form action='pledgeprocess.php?projectname=".$projectname."' method='post'>";
+echo "<b>Pledge This Project</b>";
+echo "<p>Pledge Amount: <input type='number' name='pledge' min=1></p>";
+echo "<p><input type='submit' value='pledgesubmit'></p>";
+echo "</form>"; 
 
-//------------------------ COMMENT ---------------------------------
+// Like this project
+//check if user already likeed
+	$like_check_sql = "SELECT * FROM `LIKE` WHERE projectname=\"".$_GET['projectname']."\" AND loginname=\"".$_SESSION["loginname"]."\"";
+	$like_result = $con->query($like_check_sql);
+		if ($like_result->num_rows < 1) {
+			echo "<p><a href='likeprocess.php?projectname=".$projectname."'><input type='button' value='Like This Project'></input></a></p>";
+		}
+		else {
+			echo "<p><a href='unlikeprocess.php?projectname=".$projectname."'><input type='button' value='Not Like It'></input></a></p>";
+			
+		}
+
 //List all comments
 echo "<h2>Comment:</h2>";
 $sql_display_comment = "select * from DISCUSS,USER WHERE DISCUSS.loginname=USER.loginname AND DISCUSS.projectname = '$projectname'; ";

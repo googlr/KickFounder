@@ -31,7 +31,7 @@
 		if ($project_result->num_rows > 0) {
 			
 			while($row = $project_result->fetch_assoc()) {
-				echo "<p><a href=\"signup.php\">".$row["projectname"]."</a></p>";
+				echo "<p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back To Home\"></input></a></p>";

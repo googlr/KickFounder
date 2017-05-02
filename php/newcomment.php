@@ -28,7 +28,7 @@ $sql_display_project = "INSERT INTO DISCUSS VALUES('".$projectname."','".$loginn
 echo $sql_display_project;
 mysqli_query($con, $sql_display_project);
 echo "Comment successfully."."<br>";
-echo "<tr><td><p><a href='displayproject.php?projectname=".$projectname."'>Back To Project!</a></p></td></tr>";
+echo "<p><a href='displayproject.php?projectname=".$projectname."'>Back To Project!</a></p>";
 ?>
 
 
