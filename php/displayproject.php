@@ -37,10 +37,10 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 	
 	
 	
-	
+	   //---------------------------- UPDATE ---------------------------
     //if user is owner of project, display upload option
     if($loginname == $row['loginname']){
-          $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
+      $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
                               <label for=\"file\">Filename < 20M:</label>
                               <input type=\"file\" name=\"file\" /> 
                               <br />
@@ -49,11 +49,20 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                               <input type=\"submit\" name=\"submit\" value=\"Submit\"/>
                             </form>";
           echo $upload_button."<br>";
+    } else {
+      //--------------------------- PLEDGE ---------------------------
+      //user is not owner, then he or she can pledge the project
+      $pledge_button = "<form action=\"new_pledge.php\" method=\"POST\">
+        <input type=\"number\" name=\"amount\">
+        <input type=\"submit\" name=\"submit\" value=\"pledge\">
+        ";
+      echo $pledge_button."<br>";
     }
   }
 }
 //
 
+//------------------------ COMMENT ---------------------------------
 //List all comments
 echo "<h2>Comment:</h2>";
 $sql_display_comment = "select * from DISCUSS,USER WHERE DISCUSS.loginname=USER.loginname AND DISCUSS.projectname = '$projectname'; ";
