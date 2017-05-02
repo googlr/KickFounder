@@ -1,15 +1,13 @@
 <?php 
 session_start();
-//echo "SESSION START!"; 
-if( ! isset($_SESSION['loginname']) )
-  $_SESSION['loginname'] = $_POST["loginname"];
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
 
-Welcome <?php echo $_POST["loginname"]; ?><br>
+Welcome <?php echo $_SESSION["loginname"]; ?><br>
 Start your new project here.<br><br />
 
 <form action="createproject.php" method="post">

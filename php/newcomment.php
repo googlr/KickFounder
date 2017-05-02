@@ -15,20 +15,20 @@ $projectname = $_POST["projectname"];
 $loginname = $_SESSION['loginname'];
 $content = $_POST["comment"];
 
-$con = mysql_connect("localhost","root","guoxiujia");
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
-
-mysql_select_db("kickfounder", $con);
-
-$sql_display_project = "INSERT INTO DISCUSS VALUES('$projectname','$loginname', Now(), $content );";
-
-mysql_query($sql_display_project, $con);
+$mysql_server_name="127.0.0.1:3306"; //server name
+$mysql_username="root"; // username
+$mysql_password="root"; // password
+$mysql_database="kickfounder"; // database name
+$con = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_database);
+if ($con->connect_error) {
+	die("Database connect_error: " . $con->connect_error);
+	}
+echo $projectname;
+$sql_display_project = "INSERT INTO DISCUSS VALUES('".$projectname."','".$loginname."', Now(), '".$content."' )";
+echo $sql_display_project;
+mysqli_query($con, $sql_display_project);
 echo "Comment successfully."."<br>";
-
-mysql_close($con);
+echo "<tr><td><p><a href='displayproject.php?projectname=".$projectname."'>Back To Project!</a></p></td></tr>";
 ?>
 
 

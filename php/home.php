@@ -34,7 +34,7 @@
 		if ($project_result->num_rows > 0) {
 			
 			while($row = $project_result->fetch_assoc()) {
-				echo "<tr><td><p><a href=\"signup.php\">".$row["projectname"]."</a></p></td></tr>";
+				echo "<tr><td><p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p></td></tr>";
 			}
 		}
 		echo "</table>";
@@ -45,7 +45,7 @@
 		echo "<table id='mylike'><tr> <th>My LIKES:</th></tr>";
 		if ($like_result->num_rows > 0) {
 			while($row = $like_result->fetch_assoc()) {
-				echo "<tr><td><p><a href=\"signup.php\">".$row["projectname"]."</a></p></td></tr>";
+				echo "<tr><td><p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p></td></tr>";
 			}
 		}
 		echo "</table>";
@@ -57,7 +57,7 @@
 		if ($pledge_result->num_rows > 0) {
 			while($row = $pledge_result->fetch_assoc()) {
 				echo "<tr>";
-				echo "<td><p><a href=\"signup.php\">".$row["projectname"]."</a></p></td>";
+				echo "<td><p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p></td>";
 				echo "<td><p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["loginname"]."</a></p></td>";
 				echo "<td><p>".$row["pledgetime"]."</p></td>";
 				echo "<td><p>".$row["amount"]."</p></td>";
@@ -93,17 +93,17 @@
 		echo "<p>My Follow News</p>";
 		if ($act_result1->num_rows > 0) {
 			while($row = $act_result1->fetch_assoc()) {
-				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> comment ".$row["projectname"]."</p>";
+				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> comment <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 		if ($act_result2->num_rows > 0) {
 			while($row = $act_result2->fetch_assoc()) {
-				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> create Project: ".$row["projectname"]."</p>";
+				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> create Project: <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 		if ($act_result3->num_rows > 0) {
 			while($row = $act_result3->fetch_assoc()) {
-				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> pledge ".$row["projectname"]."</p>";
+				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> pledge <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 	?>

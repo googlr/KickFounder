@@ -33,7 +33,7 @@
 			
 		}
 		
-		
+		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\"></input></a></p>";
 	?>
 	</body>
 	<style>

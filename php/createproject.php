@@ -10,13 +10,14 @@ if( ! isset($_SESSION['loginname']) )
 <body>
 
 <?php
-$con = mysql_connect("localhost","root","guoxiujia");
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
-
-mysql_select_db("kickfounder", $con);
+$mysql_server_name="127.0.0.1:3306"; //server name
+$mysql_username="root"; // username
+$mysql_password="root"; // password
+$mysql_database="kickfounder"; // database name
+$con = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_database);
+if ($con->connect_error) {
+	die("Database connect_error: " . $con->connect_error);
+	}
 
 $loginname = $_SESSION['loginname'];
 $projectname = $_POST["projectname"];
@@ -28,9 +29,9 @@ $posttime;
 $endtime = $_POST["pledgetime"]." 00:00:00";
 $plantime = $_POST["plantime"]." 00:00:00";
 
-$sql_validate_projectname = "select * from PROJECT WHERE projectname = '$projectname';";
-$result_validate_projectname = mysql_query($sql_validate_projectname, $con);
-$number_of_rows = mysql_num_rows($result_validate_projectname);
+$sql_validate_projectname = "select * from PROJECT WHERE projectname = '".$projectname."'";
+$result_validate_projectname = $con->query($sql_validate_projectname);
+$number_of_rows = $result_validate_projectname->num_rows;
 
 if($number_of_rows > 0){
 echo "Projectname is duplicated"."<br>";
@@ -51,15 +52,14 @@ $sql_insert_new_project =
 ";
 
 
-if(mysql_query($sql_insert_new_project, $con)) {
+if($con->query($sql_insert_new_project)) {
     echo "New record created successfully";
 } else {
-echo mysql_errno($con) . ": " . mysql_error($con) . "<br />";  
+echo mysqli_errno($con) . ": " . mysqli_error($con) . "<br />";  
     echo "Error: " . $sql_insert_new_project . "<br>";
 }
 
 }
-mysql_close($con);
 ?>
 
 <form action="home.php" method="post">
