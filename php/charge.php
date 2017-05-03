@@ -22,7 +22,7 @@ session_start();
 
     $charge_sql = "select * from CHARGE WHERE loginname = '$loginname';";
     $charge_result = $con->query($charge_sql);
-    echo "<p>My PLEDGE:</p>";
+    echo "<h1>My Charge:</h1>";
 		echo "<table id='mychar'><tr><th>Project</th><th>Charge Time</th><th>Amount</th></tr>";
 		if ($charge_result->num_rows > 0) {
 			while($row = $charge_result->fetch_assoc()) {

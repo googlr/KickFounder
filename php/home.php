@@ -19,6 +19,7 @@
 		echo "<p><a href=\"./charge.php\"><input type=\"button\" value=\"Go to my charge record\"></input></a></p>";
 		echo "<p><a href=\"./useredit.php\"><input type=\"button\" value=\"Edit My Profile\"></input></a></p>";
 		echo "<p><a href=\"./logout.php\"><input type=\"button\" value=\"Log Out\"></input></a></p>";
+		echo "<p><a href=\"./acthistory.php\"><input type=\"button\" value=\"Activity History\"></input></a></p>";
 		echo "<form action='browse.php' method='post' id='sertable'>";
 		echo "<p>Keyword: <input type='text' name='keyword'></p>";
 		echo "<p><input type='submit' value='Develop!',name='find'></p>";
@@ -110,6 +111,50 @@
 			}
 		}
 	?>
+	
+	<?php
+	    // recommendation system
+		// gather data for usr interested project_result
+		// follow
+		$pledge_sql = "SELECT * FROM USERACT WHERE loginname=\"".$_SESSION['loginname']."\"";
+		$pledge_result = $con->query($pledge_sql);
+		
+		// pledge
+		$pledge_sql = "SELECT * FROM PLEDGE WHERE loginname=\"".$_SESSION['loginname']."\"";
+		$pledge_result = $con->query($pledge_sql);
+		
+		
+		// use hashtable to store key
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	?>
+	
+	
+	
+	
+	
+	
+	
+	
 	</body>
 	<style>
 		#mypro{

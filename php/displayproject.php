@@ -24,6 +24,10 @@ $sql_display_project = "select * from PROJECT WHERE projectname = '$projectname'
 $result_display_project = $con->query($sql_display_project);
 $number_of_rows = mysqli_num_rows($result_display_project);
 
+// add to user act
+$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'vispro', '".$projectname."')";
+
+mysqli_query($con, $useract_sql);
 
 // display proj information
 if($number_of_rows > 1){
@@ -31,8 +35,8 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 } else {
   echo "<h2>Here is the information of the project:</h2>";
   while ($row = mysqli_fetch_array($result_display_project)) {
-    echo "<p>".$row["projectname"]."</p>";
-	echo "<p>".$row["description"]."</p>";
+    echo "<p>Project name: ".$row["projectname"]."</p>";
+	echo "<p>Project description: ".$row["description"]."</p>";
 	echo "<p>Project status: '".$row["projectstatus"]."'</p>";
 	
 	
@@ -57,7 +61,6 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 $status_check_sql = "select * from PROJECT WHERE projectname = '$projectname';";
 $status_result = $con->query($status_check_sql);
 while ($row = mysqli_fetch_array($status_result)) {
-	echo $row["projectstatus"];
 	if ($row["projectstatus"] == "ongoing") {
 		$project_check_sql = "SELECT * FROM PROJECT WHERE projectname=\"".$_GET['projectname']."\" AND loginname=\"".$_SESSION["loginname"]."\"";
 		$pro_result = $con->query($project_check_sql);
@@ -101,24 +104,31 @@ echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\" class='bac
 ?>
 
 User add new comment:
-<form action="newcomment.php" method="POST">
+<form action="newcomment.php" method="POST" id='addcom'>
 <textarea name="comment" rows="10" cols="30">
 Add your comments here.
 </textarea>
 <input type="hidden" name="projectname" value="<?php echo $projectname; ?>">
 
-<input type="submit" name="submit">
+<input type="submit" name="submit" value='submit'>
 </form>
-
-	<style>
-		.backhome{
-			position:fixed;
-			right:100px;
-			top:100px;
-			} 
-	</style>
-
 
 
 </body>
+
+
+
+<style>
+	.backhome{
+		position:fixed;
+		right:100px;
+		top:100px;
+	}
+	#addcom{
+		position:fixed;
+		right:100px;
+		top:200px;
+	} 	
+</style>
+
 </html>

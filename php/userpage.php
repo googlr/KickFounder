@@ -12,6 +12,10 @@
 		if ($con->connect_error) {
 			die("Database connect_error: " . $con->connect_error);
 		}
+		// add to user act
+		$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'visusr', '".$_GET['uloginname']."')";
+		mysqli_query($con, $useract_sql);
+		
 		// User Information
 		$user_sql = "SELECT * FROM USER WHERE loginname=\"".$_GET['uloginname']."\"";
 		$user_result = $con->query($user_sql);
