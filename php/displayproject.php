@@ -36,12 +36,22 @@ echo "Database compromised, Projectname is duplicated"."<br>";
   echo "<h2>Here is the information of the project:</h2>";
   while ($row = mysqli_fetch_array($result_display_project)) {
     echo "<p>Project name: ".$row["projectname"]."</p>";
-	echo "<p>Project description: ".$row["description"]."</p>";
-	echo "<p>Project status: '".$row["projectstatus"]."'</p>";
-	
-	
-	
-	
+    echo "<p>Project description: ".$row["description"]."</p>";
+    echo "<p>Project status: '".$row["projectstatus"]."'</p>";
+
+    //TAG
+    //display tags of project
+    $sql_get_project_tag = "SELECT * from TAG WHERE projectname = '$projectname';";
+    $result_get_project_tag = $con->query( $sql_get_project_tag );
+    while( $row_tag = mysqli_fetch_array(result_get_project_tag) ){
+      echo "<p>Tags of ".$projectname." :</p>";
+      echo $row_tag["tagname"]."  ";
+    }
+    echo "<br>";
+    //user could also add tag of project
+    //To-do
+
+
     //if user is owner of project, display upload option
     if($loginname == $row['loginname']){
           $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
