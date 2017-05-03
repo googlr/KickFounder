@@ -33,6 +33,7 @@ echo "Database compromised, Projectname is duplicated"."<br>";
   while ($row = mysqli_fetch_array($result_display_project)) {
     echo "<p>".$row["projectname"]."</p>";
 	echo "<p>".$row["description"]."</p>";
+	echo "<p>Project status: '".$row["projectstatus"]."'</p>";
 	
 	
 	
@@ -52,11 +53,28 @@ echo "Database compromised, Projectname is duplicated"."<br>";
   }
 }
 // Pledge
-echo "<form action='pledgeprocess.php?projectname=".$projectname."' method='post'>";
-echo "<b>Pledge This Project</b>";
-echo "<p>Pledge Amount: <input type='number' name='pledge' min=1></p>";
-echo "<p><input type='submit' value='pledgesubmit'></p>";
-echo "</form>"; 
+//check if user create this project? if so cannot pledge his own project
+$status_check_sql = "select * from PROJECT WHERE projectname = '$projectname';";
+$status_result = $con->query($status_check_sql);
+while ($row = mysqli_fetch_array($status_result)) {
+	echo $row["projectstatus"];
+	if ($row["projectstatus"] == "ongoing") {
+		$project_check_sql = "SELECT * FROM PROJECT WHERE projectname=\"".$_GET['projectname']."\" AND loginname=\"".$_SESSION["loginname"]."\"";
+		$pro_result = $con->query($project_check_sql);
+		if ($pro_result->num_rows < 1) {
+			echo "<form action='pledgeprocess.php?projectname=".$projectname."' method='post'>";
+			echo "<b>Pledge This Project</b>";
+			echo "<p>Pledge Amount: <input type='number' name='pledge' min=1></p>";
+			echo "<p><input type='submit' value='pledgesubmit'></p>";
+			echo "</form>"; 
+		}
+	}
+}
+	
+
+
+
+
 
 // Like this project
 //check if user already likeed
@@ -75,11 +93,11 @@ echo "<h2>Comment:</h2>";
 $sql_display_comment = "select * from DISCUSS,USER WHERE DISCUSS.loginname=USER.loginname AND DISCUSS.projectname = '$projectname'; ";
 $result_display_comment = $con->query($sql_display_comment);
 while ($row_comment = mysqli_fetch_array($result_display_comment)) {
-    echo $row_comment["content"]."<br />";
+    //echo $row_comment["content"]."<br />";
     //TO_DO add button to lick to user
-    echo "<p><a href='userpage.php?uloginname=".$row_comment["loginname"]."'>".$row_comment["username"]."</a></p>";
+    echo "<p><a href='userpage.php?uloginname=".$row_comment["loginname"]."'>".$row_comment["username"]."</a>: ".$row_comment["content"]."</p>";
   }
-echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\"></input></a></p>";
+echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\" class='backhome'></input></a></p>";
 ?>
 
 User add new comment:
@@ -91,6 +109,16 @@ Add your comments here.
 
 <input type="submit" name="submit">
 </form>
+
+	<style>
+		.backhome{
+			position:fixed;
+			right:100px;
+			top:100px;
+			} 
+	</style>
+
+
 
 </body>
 </html>

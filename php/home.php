@@ -12,16 +12,19 @@
 		if ($con->connect_error) {
 			die("Database connect_error: " . $con->connect_error);
 		}
+		
+		
+		
 		echo "<p><a href=\"./newproject.php\"><input type=\"button\" value=\"Create New Projects\"></input></a></p>";
+		echo "<p><a href=\"./charge.php\"><input type=\"button\" value=\"Go to my charge record\"></input></a></p>";
 		echo "<p><a href=\"./useredit.php\"><input type=\"button\" value=\"Edit My Profile\"></input></a></p>";
 		echo "<p><a href=\"./logout.php\"><input type=\"button\" value=\"Log Out\"></input></a></p>";
-		
-		
-		
-		echo "<form action='browse.php' method='post'>";
+		echo "<form action='browse.php' method='post' id='sertable'>";
 		echo "<p>Keyword: <input type='text' name='keyword'></p>";
 		echo "<p><input type='submit' value='Develop!',name='find'></p>";
 		echo "</form>";
+
+		
 		if(!empty($_POST['find'])){
 			echo $_POST['keyword'];
 		}
@@ -125,6 +128,12 @@
 			position:absolute;
 			top:  100px;
 			right:  550px;
+
+			} 
+		#sertable{
+			position:absolute;
+			top:  100px;
+			left:  350px;
 
 			} 
 	</style>
