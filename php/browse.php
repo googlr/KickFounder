@@ -22,11 +22,34 @@
 				$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'search', 'ALL*')";
 			}
 			else {
-				$project_sql = "SELECT * FROM PROJECT WHERE projectname LIKE "."\"%".$keyw."%\"";
-				$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'search', '".$keyw."')";
+				//$project_sql = "SELECT * FROM PROJECT WHERE projectname LIKE "."\"%".$keyw."%\"";
+
+				/* Prepared statement, stage 1: prepare */
+				if (!($stmt = $con->prepare("SELECT * FROM PROJECT WHERE projectname LIKE ?"))) {
+    				echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+				}
+				//bind the variables to the stmt
+				$keywords = "%".$keyw."%";
+				$stmt -> bind_param("s",$keywords);
+				//execute
+				$stmt ->execute();
+				$project_result = $stmt->get_result();
+
+
+				//$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'search', '".$keyw."')";
+				/* Prepared statement, stage 1: prepare */
+				if (!($ureract_stmt = $con->prepare("INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'search', ?"))) {
+ 			   		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+				}
+
+				//bind the variables to the ureract_stmt
+				$ureract_stmt -> bind_param("s",$keywords);
+				//execute
+				$ureract_stmt ->execute();
+				
 			}
 		mysqli_query($con, $useract_sql);
-		$project_result = $con->query($project_sql);
+		//$project_result = $con->query($project_sql);
 		echo "<p>Projects:</p>";
 		if ($project_result->num_rows > 0) {
 			
