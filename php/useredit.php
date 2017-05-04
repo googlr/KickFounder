@@ -12,6 +12,7 @@
 			echo $_POST['interests'];
 			echo $_POST['creditcard'];
 		}
+		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Cancel Change and back\"></input></a></p>";
 	?>
 	<form action='editcomplete.php' method='post'>
 		<p>Description: <input type='text' name='say'></p>
