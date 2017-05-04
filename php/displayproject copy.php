@@ -74,33 +74,42 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                               <input type=\"submit\" name=\"submit\" value=\"Submit\"/>
                             </form>";
         echo $upload_button."<br>";
-
-        //RATE
-        //if project is completed, ask owner to rate it
-        if( $row["projectstatus"] == "completed" ){
-        	$project_rate_button=
-				"
-					<div class=\"stars\">
-  						<form action=\"rate_process.php\" method=\"POST\">
-   							<input class=\"star star-5\" id=\"star-5\" type=\"radio\" value=\"5\" name=\"star\"/>
-    						<label class=\"star star-5\" for=\"star-5\"></label>
-    						<input class=\"star star-4\" id=\"star-4\" type=\"radio\" value=\"4\" name=\"star\"/>
-    						<label class=\"star star-4\" for=\"star-4\"></label>
-    						<input class=\"star star-3\" id=\"star-3\" type=\"radio\" value=\"3\" name=\"star\"/>
-   							<label class=\"star star-3\" for=\"star-3\"></label>
-    						<input class=\"star star-2\" id=\"star-2\" type=\"radio\" value=\"2\" name=\"star\"/>
-    						<label class=\"star star-2\" for=\"star-2\"></label>
-    						<input class=\"star star-1\" id=\"star-1\" type=\"radio\" value=\"1\" name=\"star\"/>
-    						<label class=\"star star-1\" for=\"star-1\"></label>
-    						<input type=\"submit\" name=\"submit\" value=\"submit\">
-  						</form>
-					</div>
-				";
-			echo $project_rate_button;
-        }
     }
+
+    //RATE
+    //if project is completed and user has pledged, ask user to rate it
+    if( $row["projectstatus"] == "complete" ){
+      $sql_check_if_pledged = "SELECT * FROM PLEDGE WHERE loginname = '$loginname' AND projectname = '$projectname';";
+      $result_check_if_pledged = $con->query($sql_check_if_pledged);
+      $number_of_rows_check_if_pledged = mysqli_num_rows($result_check_if_pledged);
+      if( $number_of_rows_check_if_pledged > 0 ){
+        $project_rate_button=
+          "
+          <div class=\"stars\">
+              <form action=\"rate_process.php\" method=\"POST\">
+                <input class=\"star star-5\" id=\"star-5\" type=\"radio\" value=\"5\" name=\"star\"/>
+                <label class=\"star star-5\" for=\"star-5\"></label>
+                <input class=\"star star-4\" id=\"star-4\" type=\"radio\" value=\"4\" name=\"star\"/>
+                <label class=\"star star-4\" for=\"star-4\"></label>
+                <input class=\"star star-3\" id=\"star-3\" type=\"radio\" value=\"3\" name=\"star\"/>
+                <label class=\"star star-3\" for=\"star-3\"></label>
+                <input class=\"star star-2\" id=\"star-2\" type=\"radio\" value=\"2\" name=\"star\"/>
+                <label class=\"star star-2\" for=\"star-2\"></label>
+                <input class=\"star star-1\" id=\"star-1\" type=\"radio\" value=\"1\" name=\"star\"/>
+                <label class=\"star star-1\" for=\"star-1\"></label>
+                <input type=\"hidden\" name=\"projectname\" value=\"<?php echo $projectname; ?>\" >
+                <input type=\"submit\" name=\"submit\" value=\"submit\">
+              </form>
+          </div>
+        ";
+        echo $project_rate_button;
+      }
+    }
+
   }
 }
+
+
 // Pledge
 //check if user create this project? if so cannot pledge his own project
 $status_check_sql = "select * from PROJECT WHERE projectname = '$projectname';";
@@ -119,10 +128,6 @@ while ($row = mysqli_fetch_array($status_result)) {
 	}
 }
 	
-
-
-
-
 
 // Like this project
 //check if user already likeed
