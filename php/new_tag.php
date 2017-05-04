@@ -9,7 +9,7 @@ session_start();
 
 <?php
 	
-	$projectname = $_POST["projectname"];
+	$projectname = $_GET["projectname"];
 	$tagname = $_POST["tag"];
 
 
@@ -23,8 +23,8 @@ session_start();
 		}
 	$sql_new_tag = "INSERT INTO TAG VALUES('$projectname', '$tagname');";
 
-	mysqli_query($con, $pledge_sql);
-	echo "<p><a href='displayproject.php?projectname=".$_POST['projectname']."'>Back To Project!</a></p>";
+	mysqli_query($con, $sql_new_tag);
+	echo "<p><a href='displayproject.php?projectname=".$_GET['projectname']."'>Back To Project!</a></p>";
 
 ?>
 

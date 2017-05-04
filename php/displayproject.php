@@ -42,20 +42,24 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     //TAG
     //display tags of project
     $sql_get_project_tag = "SELECT * from TAG WHERE projectname = '$projectname';";
-    $result_get_project_tag = $con->query( $sql_get_project_tag );
-    while( $row_tag = mysqli_fetch_array(result_get_project_tag) ){
-      echo "<p>Tags of ".$projectname." :</p>";
-      echo $row_tag["tagname"]."  ";
+    $result_get_project_tag = $con->query($sql_get_project_tag);
+	echo "<p>Tags: ";
+    while( $row_tag = mysqli_fetch_array($result_get_project_tag) ){
+		echo "<a href='taglist.php?tagname=".$row_tag["tagname"]."'>[".$row_tag["tagname"]."] </a>";
     }
-    echo "<br>";
+    echo "</p>";
     //user could also add tag of project
-    $add_tag_button = "<form action=\"new_tag.php?projectname=".$projectname."\" method=POST\" >
-    <input type=\"text\" name=\"tag\">
-    <input type=\"text\" name=\"projectname\" value=\"<?php echo $projectname; ?>\" >
-    <input type=\"submit\" name=\"submit\" value=\"Submit\">
-    </form>
-    	";
-    echo $add_tag_button;
+	$tag_button = "<form action='new_tag.php?projectname=".$projectname."' method='POST' >
+                              <input type=\"text\" name=\"tag\">
+							  <input type=\"submit\" name=\"submittag\" value=\"Add Tag\">
+                            </form>";
+    echo $tag_button."<br>";
+	
+	
+	
+	
+
+    
 
 
     //if user is owner of project, display upload option
@@ -117,9 +121,19 @@ while ($row_comment = mysqli_fetch_array($result_display_comment)) {
     echo "<p><a href='userpage.php?uloginname=".$row_comment["loginname"]."'>".$row_comment["username"]."</a>: ".$row_comment["content"]."</p>";
   }
 echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\" class='backhome'></input></a></p>";
+
+$fig_sql = "SELECT * FROM MATERIAL WHERE projectname='".$projectname."'";
+$fig_result = $con->query($fig_sql);
+	if ($fig_result->num_rows > 0) {
+		echo "<p>Proejct material</p>";
+		while($row = $fig_result->fetch_assoc()) {
+			
+			echo '<p><img height="100px" height="100px" src="data:image/jpeg;base64,'.base64_encode( $row['file'] ).'"/></p>';
+		}
+	}
 ?>
 
-User add new comment:
+
 <form action="newcomment.php" method="POST" id='addcom'>
 <textarea name="comment" rows="10" cols="30">
 Add your comments here.
