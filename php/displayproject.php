@@ -8,8 +8,6 @@ session_start();
 
 <?php
 
-$projectname = $_GET["projectname"];
-$loginname = $_SESSION['loginname'];
 
 $mysql_server_name="127.0.0.1:3306"; //server name
 $mysql_username="root"; // username
@@ -18,28 +16,26 @@ $mysql_database="kickfounder"; // database name
 $con = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_database);
 if ($con->connect_error) {
 	die("Database connect_error: " . $con->connect_error);
-}
-/*
+	}
+	
+$projectname = mysqli_real_escape_string($con, $_GET["projectname"]);
+$loginname = $_SESSION['loginname'];
+
 $sql_display_project = "select * from PROJECT WHERE projectname = '$projectname';";
 $result_display_project = $con->query($sql_display_project);
-$number_of_rows = mysqli_num_rows($result_display_project);*/
-		/* Prepared statement, stage 1: prepare */
-if (!($display_project_stmt = $con->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
-    echo "Prepare failed: (" . $con->errno . ") " . $con->error;
-}
+$number_of_rows = mysqli_num_rows($result_display_project);
 
-//bind the variables to the display_project_stmt
-$display_project_stmt -> bind_param("ss",$loginname, $password);
-//execute
-$display_project_stmt ->execute();
-$res_display_project = $display_project_stmt->get_result();
-$number_of_rows = $res_display_project->num_rows();
+// add to user act
+$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'vispro', '".$projectname."')";
+
+mysqli_query($con, $useract_sql);
+
 // display proj information
 if($number_of_rows > 1){
 echo "Database compromised, Projectname is duplicated"."<br>";
 } else {
   echo "<h2>Here is the information of the project:</h2>";
-  while ($row = $res_display_project->fetch_assoc()) {
+  while ($row = mysqli_fetch_array($result_display_project)) {
     echo "<p>Project name: ".$row["projectname"]."</p>";
     echo "<p>Project description: ".$row["description"]."</p>";
     echo "<p>Project status: '".$row["projectstatus"]."'</p>";
@@ -60,7 +56,11 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                             </form>";
     echo $tag_button."<br>";
 	
+	
+	
+	
 
+    
 
 
     //if user is owner of project, display upload option
@@ -77,19 +77,6 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     }
   }
 }
-// add to user act
-/*
-$useract_sql = "INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'vispro', '".$projectname."')";
-mysqli_query($con, $useract_sql);*/
-/* Prepared statement, stage 1: prepare */
-if (!($stmt = $con->prepare("INSERT INTO `USERACT` VALUES('".$_SESSION['loginname']."',now(), 'vispro', ?)"))) {
-   	echo "Prepare failed: (" . $con->errno . ") " . $con->error;
-}
-//bind the variables to the stmt
-$stmt -> bind_param("s",$projectname);
-//execute
-$stmt ->execute();
-
 // Pledge
 //check if user create this project? if so cannot pledge his own project
 $status_check_sql = "select * from PROJECT WHERE projectname = '$projectname';";
