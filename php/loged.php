@@ -15,7 +15,7 @@
 		$loginname = $_POST["loginname"];
 		$password = $_POST["password"];
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $mysqli->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
+		if (!($stmt = $con->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
