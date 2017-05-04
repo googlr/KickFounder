@@ -42,20 +42,24 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     //TAG
     //display tags of project
     $sql_get_project_tag = "SELECT * from TAG WHERE projectname = '$projectname';";
-    $result_get_project_tag = $con->query( $sql_get_project_tag );
-    while( $row_tag = mysqli_fetch_array(result_get_project_tag) ){
-      echo "<p>Tags of ".$projectname." :</p>";
-      echo $row_tag["tagname"]."  ";
+    $result_get_project_tag = $con->query($sql_get_project_tag);
+	echo "<p>Tags: ";
+    while( $row_tag = mysqli_fetch_array($result_get_project_tag) ){
+		echo "<a href='taglist.php?tagname=".$row_tag["tagname"]."'>[".$row_tag["tagname"]."] </a>";
     }
-    echo "<br>";
+    echo "</p>";
     //user could also add tag of project
-    $add_tag_button = "<form action=\"new_tag.php?projectname=".$projectname."\" method=POST\" >
-    <input type=\"text\" name=\"tag\">
-    <input type=\"text\" name=\"projectname\" value=\"<?php echo $projectname; ?>\" >
-    <input type=\"submit\" name=\"submit\" value=\"Submit\">
-    </form>
-    	";
-    echo $add_tag_button;
+	$tag_button = "<form action='new_tag.php?projectname=".$projectname."' method='POST' >
+                              <input type=\"text\" name=\"tag\">
+							  <input type=\"submit\" name=\"submittag\" value=\"Add Tag\">
+                            </form>";
+    echo $tag_button."<br>";
+	
+	
+	
+	
+
+    
 
 
     //if user is owner of project, display upload option
