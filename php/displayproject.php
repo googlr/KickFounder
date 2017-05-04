@@ -49,7 +49,13 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     }
     echo "<br>";
     //user could also add tag of project
-    //To-do
+    $add_tag_button = "<form action=\"new_tag.php?projectname=".$projectname."\" method=POST\" >
+    <input type=\"text\" name=\"tag\">
+    <input type=\"text\" name=\"projectname\" value=\"<?php echo $projectname; ?>\" >
+    <input type=\"submit\" name=\"submit\" value=\"Submit\">
+    </form>
+    	";
+    echo $add_tag_button;
 
 
     //if user is owner of project, display upload option
