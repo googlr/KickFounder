@@ -10,8 +10,8 @@
 	?>
 	<form action='loged.php' method='post'>
 		<p>User name: <input type='text' name='loginname'></p>
-		<p>password: <input type='text' name='password'></p>
-		<p><input type='submit' value='login',name='login'></p>
+		<p>password: <input type='password' name='password'></p>
+		<p><input type='submit' value='login' name='login'></p>
 	</form>
 	<p><a href="signup.php"><input type="button" value="Sign Up Now!"></a></p>
 

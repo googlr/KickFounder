@@ -11,10 +11,28 @@
 		if ($con->connect_error) {
 			die("Database connect_error: " . $con->connect_error);
 		}
+
+		$loginname = $_POST["loginname"];
+		$password = $_POST["password"];
+		/* Prepared statement, stage 1: prepare */
+		if (!($stmt = $mysqli->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
+    		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+
+		//bind the variables to the stmt
+		$stmt -> bind_param("ss",$loginname, $password);
+		//execute
+		$stmt ->execute();
+		$res = $stmt->get_result();
+		$row = $res->fetch_assoc();
+
+		/*
 		//check if user exist
 		$user_check_sql = "SELECT loginname FROM USER WHERE loginname=\"".$_POST["loginname"]."\" AND password=\"".$_POST["password"]."\"";
 		$user_result = $con->query($user_check_sql);
-		if ($user_result->num_rows < 1) {
+		*/
+		//if ($user_result->num_rows < 1) {
+		if ($res->num_rows < 1) {
 			echo "Your password or username is incorrect";
 			echo "<p><a href=\"./index.php\"><input type=\"button\" value=\"Back to the Login page!\"></input></a></p>";
 		}
@@ -26,6 +44,9 @@
 			echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Go to Home\"></input></a></p>";
 			
 		}
+
+		//close
+		$stmt -> close();
 	?>
 	</body>
 </html>
