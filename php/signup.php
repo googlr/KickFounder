@@ -10,9 +10,9 @@
 		}
 	?>
 	<form action='signupprocess.php' method='post'>
-		<p>Your name: <input type='text' name='username'></p>
-		<p>Login name: <input type='text' name='loginname'></p>
-		<p>password: <input type='text' name='password'></p>
+		<p>Your name: <input type='text' name='username' required></p>
+		<p>Login name: <input type='text' name='loginname' required></p>
+		<p>password: <input type='text' name='password' required></p>
 		<p><input type='submit' value='submit',name='sign'></p>
 	</form>
 

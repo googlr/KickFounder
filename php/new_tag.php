@@ -9,8 +9,6 @@ session_start();
 
 <?php
 	
-
-
     $mysql_server_name="127.0.0.1:3306"; //server name
 	$mysql_username="root"; // username
 	$mysql_password="root"; // password
