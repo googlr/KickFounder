@@ -34,13 +34,7 @@ else
 		$sql_new_upload_file = "INSERT INTO MATERIAL VALUES('$projectname', Now(), '$matdes', '$file' );";
 		mysqli_query($con, $sql_new_upload_file);
 		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back To Home\"></input></a></p>";
-		$fig_sql = "SELECT * FROM MATERIAL WHERE projectname='".$projectname."'";
-		$fig_result = $con->query($fig_sql);
-		if ($fig_result->num_rows > 0) {
-			while($row = $fig_result->fetch_assoc()) {
-				echo '<img src="data:image/jpeg;base64,'.base64_encode( $row['file'] ).'"/>';
-			}
-		}
+		
 
 ?>
 

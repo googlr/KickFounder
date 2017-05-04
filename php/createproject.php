@@ -10,6 +10,17 @@ if( ! isset($_SESSION['loginname']) )
 <body>
 
 <?php
+    function test_input($data) {
+  			$data = trim($data);
+  			$data = stripslashes($data);
+  			$data = htmlspecialchars($data);
+  			return $data;
+	}
+	
+
+
+
+
 $mysql_server_name="127.0.0.1:3306"; //server name
 $mysql_username="root"; // username
 $mysql_password="root"; // password
@@ -20,7 +31,7 @@ if ($con->connect_error) {
 	}
 
 $loginname = $_SESSION['loginname'];
-$projectname = $_POST["projectname"];
+$projectname = test_input($_POST["projectname"]);
 $description = $_POST["description"];
 $projectstatus = "ongoing";
 $minfund = $_POST["minfund"];
@@ -50,14 +61,23 @@ $sql_insert_new_project =
         '$endtime',
         '$plantime');
 ";
+$sql_insert_new_project =
+"INSERT INTO PROJECT VALUES(?, ?, ?, ?, ?, ?, Now(),?,?)";
 
 
-if($con->query($sql_insert_new_project)) {
-    echo "New record created successfully";
-} else {
-echo mysqli_errno($con) . ": " . mysqli_error($con) . "<br />";  
-    echo "Error: " . $sql_insert_new_project . "<br>";
-}
+
+
+/* Prepared statement, stage 1: prepare */
+	if (!($stmt = $con->prepare($sql_insert_new_project))) {
+    		echo "Prepare failed: (" . $con->errno . ") " . $con->error;
+		}
+
+		//bind the variables to the stmt
+		$stmt -> bind_param("ssssssss", $projectname, $loginname, $description, $projectstatus, $minfund, $maxfund, $endtime, $plantime);
+		//execute
+		$stmt ->execute();
+
+
 
 }
 ?>
