@@ -16,7 +16,7 @@
 		$password = $_POST["password"];
 		/* Prepared statement, stage 1: prepare */
 		if (!($stmt = $con->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
-    		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+    		echo "Prepare failed: (" . $con->errno . ") " . $con->error;
 		}
 
 		//bind the variables to the stmt
