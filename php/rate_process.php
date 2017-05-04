@@ -20,14 +20,14 @@ if ($con->connect_error) {
 	
 //$projectname = mysqli_real_escape_string($con, $_POST["projectname"]);
 $projectname = $_POST["projectname"];
-echo $projectname;
+
 $loginname = $_SESSION['loginname'];
 $score = $_POST["star"];
 
 $sql_insert_rate = "INSERT INTO RATE VALUES('$projectname', '$loginname', Now(), '$score');";
-echo $sql_insert_rate;
-$con->query($sql_insert_rate);
 
+$con->query($sql_insert_rate);
+echo "<p><a href='displayproject.php?projectname=".$projectname."'>Back To Project!</a></p>";
 ?>
 
 
