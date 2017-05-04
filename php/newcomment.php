@@ -23,10 +23,22 @@ $con = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_d
 if ($con->connect_error) {
 	die("Database connect_error: " . $con->connect_error);
 	}
-echo $projectname;
-$sql_display_project = "INSERT INTO DISCUSS VALUES('".$projectname."','".$loginname."', Now(), '".$content."' )";
-echo $sql_display_project;
-mysqli_query($con, $sql_display_project);
+
+$sql_display_project = "INSERT INTO DISCUSS VALUES('".$projectname."','".$loginname."', Now(), ? )";
+
+
+
+/* Prepared statement, stage 1: prepare */
+	if (!($stmt = $con->prepare($sql_display_project))) {
+    		echo "Prepare failed: (" . $con->errno . ") " . $con->error;
+		}
+
+		//bind the variables to the stmt
+		$stmt -> bind_param("s", $content);
+		//execute
+		$stmt ->execute();
+
+
 echo "Comment successfully."."<br>";
 echo "<p><a href='displayproject.php?projectname=".$projectname."'>Back To Project!</a></p>";
 ?>
