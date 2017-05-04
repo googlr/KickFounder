@@ -121,6 +121,16 @@ while ($row_comment = mysqli_fetch_array($result_display_comment)) {
     echo "<p><a href='userpage.php?uloginname=".$row_comment["loginname"]."'>".$row_comment["username"]."</a>: ".$row_comment["content"]."</p>";
   }
 echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\" class='backhome'></input></a></p>";
+
+$fig_sql = "SELECT * FROM MATERIAL WHERE projectname='".$projectname."'";
+$fig_result = $con->query($fig_sql);
+	if ($fig_result->num_rows > 0) {
+		echo "<p>Proejct material</p>";
+		while($row = $fig_result->fetch_assoc()) {
+			
+			echo '<p><img height="100px" height="100px" src="data:image/jpeg;base64,'.base64_encode( $row['file'] ).'"/></p>';
+		}
+	}
 ?>
 
 User add new comment:
