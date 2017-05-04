@@ -133,7 +133,7 @@ $fig_result = $con->query($fig_sql);
 	}
 ?>
 
-User add new comment:
+
 <form action="newcomment.php" method="POST" id='addcom'>
 <textarea name="comment" rows="10" cols="30">
 Add your comments here.

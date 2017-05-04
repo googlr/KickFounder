@@ -110,43 +110,42 @@
 				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> pledge <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
+		
+		// recommendation system
+		
+		
+		$rec_sql="SELECT tagname, COUNT(tagname) AS tag_num
+		    FROM tag WHERE projectname in 
+			(SELECT distinct actvalue FROM USERACT WHERE loginname='".$_SESSION['loginname']."' AND acttype='vispro')
+			GROUP BY tagname ORDER BY tag_num DESC LIMIT 0,2";
+		$rec_result = $con->query($rec_sql);
+		$projarr = array();
+	    if ($rec_result->num_rows > 0) {
+			
+			while($row = $rec_result->fetch_assoc()) {
+
+				$rec_proj_sql="SELECT projectname FROM tag where tagname='".$row["tagname"]."' AND projectname not in 
+				    (SELECT Project.projectname FROM `LIKE`, project
+					    where `LIKE`.loginname=Project.loginname AND `LIKE`.loginname='".$_SESSION['loginname']."')";
+				$rec_proj_result=$con->query($rec_proj_sql);
+				if ($rec_proj_result->num_rows > 0) {
+					while($row_proj = $rec_proj_result->fetch_assoc()) {
+						$projarr[]=$row_proj["projectname"];
+					}
+				}
+
+			}
+		}
+		$projarr = array_flip(array_flip($projarr));
+		echo "<table id='myrecom'><tr> <th>Recommed this project to you:</th></tr>";
+		foreach ($projarr as $recom_proj){ 
+		    echo "<tr><td><a href='displayproject.php?projectname=".$recom_proj."'>".$recom_proj."</a></td></tr>";
+		} 
+		echo "</table>";
+		// end recommendation system
 	?>
 	
-	<?php
-	    // recommendation system
-		// gather data for usr interested project_result
-		// follow
-		$pledge_sql = "SELECT * FROM USERACT WHERE loginname=\"".$_SESSION['loginname']."\"";
-		$pledge_result = $con->query($pledge_sql);
-		
-		// pledge
-		$pledge_sql = "SELECT * FROM PLEDGE WHERE loginname=\"".$_SESSION['loginname']."\"";
-		$pledge_result = $con->query($pledge_sql);
-		
-		
-		// use hashtable to store key
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	?>
+
 	
 	
 	
@@ -179,6 +178,13 @@
 			position:absolute;
 			top:  100px;
 			left:  350px;
+
+			} 
+			
+		#myrecom{
+			position:absolute;
+			top:  300px;
+			right: 550px;
 
 			} 
 	</style>
