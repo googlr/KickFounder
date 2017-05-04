@@ -1,6 +1,6 @@
 <?php 
 session_start();
-echo "SESSION START!<br>"; 
+
 ?>
 
 <!DOCTYPE html>
@@ -10,14 +10,9 @@ echo "SESSION START!<br>";
 <?php
 echo "Uploading files...<br>";
 $projectname=$_GET["projectname"];
-if (isset($_FILES['file'])) {
-	echo "setted";
-	echo $_GET["projectname"];
-}
-else
-{echo "Not set";}
-
-        // record the upload into the database
+if (isset($_FILES['file']) && !empty($_FILES['file']['tmp_name'])) {
+	
+	 // record the upload into the database
 
 	  	$loginname = $_SESSION['loginname'];
 	  	$matdes = $_POST["matdes"];
@@ -31,8 +26,22 @@ else
 			die("Database connect_error: " . $con->connect_error);
 		}
 
-		$sql_new_upload_file = "INSERT INTO MATERIAL VALUES('$projectname', Now(), '$matdes', '$file' );";
-		mysqli_query($con, $sql_new_upload_file);
+		$sql_new_upload_file = "INSERT INTO MATERIAL VALUES('$projectname', Now(), ?, '$file' );";
+		/* Prepared statement, stage 1: prepare */
+	    if (!($stmt = $con->prepare($sql_new_upload_file))) {
+    		echo "Prepare failed: (" . $con->errno . ") " . $con->error;
+		}
+
+		//bind the variables to the stmt
+		$stmt -> bind_param("s", $matdes);
+		//execute
+		$stmt ->execute();
+}
+else
+{echo "Not set";}
+
+       
+
 		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back To Home\"></input></a></p>";
 		
 
