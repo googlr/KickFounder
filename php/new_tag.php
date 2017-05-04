@@ -9,8 +9,6 @@ session_start();
 
 <?php
 	
-	$projectname = $_GET["projectname"];
-	$tagname = $_POST["tag"];
 
 
     $mysql_server_name="127.0.0.1:3306"; //server name
@@ -21,6 +19,11 @@ session_start();
 	if ($con->connect_error) {
 		die("Database connect_error: " . $con->connect_error);
 		}
+
+	$projectname = mysqli_real_escape_string($con, $_GET["projectname"]);
+	$tagname = mysqli_real_escape_string($con, $_POST["tag"]);	
+		
+		
 	$sql_new_tag = "INSERT INTO TAG VALUES('$projectname', '$tagname');";
 
 	mysqli_query($con, $sql_new_tag);

@@ -17,8 +17,9 @@ session_start();
     if ($con->connect_error) {
 	    die("Database connect_error: " . $con->connect_error);
 	}
-
-    $tag_sql = "select * from TAG WHERE tagname = '".$_GET['tagname']."';";
+	$tagname = mysqli_real_escape_string($con, $_GET['tagname']);	
+		
+    $tag_sql = "select * from TAG WHERE tagname = '".$tagname."';";
     $tag_result = $con->query($tag_sql);
     echo "<h1>Project related to this tag:</h1>";
 		if ($tag_result->num_rows > 0) {
