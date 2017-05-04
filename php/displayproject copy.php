@@ -51,7 +51,7 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     echo "</p>";
     //user could also add tag of project
 	$tag_button = "<form action='new_tag.php?projectname=".$projectname."' method='POST' >
-                              <input type=\"text\" pattern='[A-Za-z]' name=\"tag\">
+                              <input type=\"text\" name=\"tag\">
 							  <input type=\"submit\" name=\"submittag\" value=\"Add Tag\">
                             </form>";
     echo $tag_button."<br>";
@@ -73,7 +73,7 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                               <input type=\"text\" name=\"matdes\">
                               <input type=\"submit\" name=\"submit\" value=\"Submit\"/>
                             </form>";
-         echo $upload_button."<br>";
+        echo $upload_button."<br>";
 
         //RATE
         //if project is completed, ask owner to rate it
@@ -170,7 +170,6 @@ Add your comments here.
 
 
 </body>
-
 
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
