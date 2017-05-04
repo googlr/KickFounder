@@ -79,13 +79,32 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     //RATE
     //if project is completed and user has pledged, ask user to rate it
     if( $row["projectstatus"] == "complete" ){
-      $sql_check_if_pledged = "SELECT * FROM PLEDGE WHERE loginname = '$loginname' AND projectname = '$projectname';";
+	  // display rate
+	  $all_rate_check_sql = "SELECT * FROM RATE WHERE loginname = '$loginname' AND projectname = '$projectname';";
+      $rate_check_result = $con->query($all_rate_check_sql);
+      $number_of_rate = mysqli_num_rows($rate_check_result);
+	 if( $number_of_rate > 0 ){ 
+	     $ave_sql = "SELECT avg(score) AS ave_value FROM RATE WHERE loginname = '$loginname' AND projectname = '$projectname';";
+		 $ave_result = $con->query($ave_sql);
+		 while($row_ave = $ave_result->fetch_assoc()) { 
+		    echo "<p>Average score of this project is: ".$row_ave["ave_value"]."</p>";
+		 }
+	}
+		
+		
+	  // rating	
+	  $rate_check_sql = "SELECT * FROM RATE WHERE loginname = '$loginname' AND projectname = '$projectname';";
+	  $rate_check_result2 = $con->query($rate_check_sql);
+      $already_rated = mysqli_num_rows($rate_check_result2);
+	  if( $already_rated < 1 ){
+		  $sql_check_if_pledged = "SELECT * FROM PLEDGE WHERE loginname = '$loginname' AND projectname = '$projectname';";
       $result_check_if_pledged = $con->query($sql_check_if_pledged);
       $number_of_rows_check_if_pledged = mysqli_num_rows($result_check_if_pledged);
       if( $number_of_rows_check_if_pledged > 0 ){
         $project_rate_button=
           "
           <div class=\"stars\">
+		  <p>Please Rate This Project:</p>
               <form action=\"rate_process.php\" method=\"POST\">
                 <input class=\"star star-5\" id=\"star-5\" type=\"radio\" value=\"5\" name=\"star\"/>
                 <label class=\"star star-5\" for=\"star-5\"></label>
@@ -97,13 +116,16 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                 <label class=\"star star-2\" for=\"star-2\"></label>
                 <input class=\"star star-1\" id=\"star-1\" type=\"radio\" value=\"1\" name=\"star\"/>
                 <label class=\"star star-1\" for=\"star-1\"></label>
-                <input type=\"hidden\" name=\"projectname\" value=\"<?php echo $projectname; ?>\" >
+                <input type=\"hidden\" name=\"projectname\" value=\"".$projectname."\" >
                 <input type=\"submit\" name=\"submit\" value=\"submit\">
               </form>
           </div>
         ";
         echo $project_rate_button;
       }
+	  }
+	  
+      
     }
     
   }
