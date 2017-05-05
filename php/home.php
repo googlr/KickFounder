@@ -3,7 +3,7 @@
 	<body>
 	<?php
 	    session_start();
-		echo "<h1>User Home: ".$_SESSION['loginname']."</h1>";
+		echo "<h2>User Home: ".$_SESSION['loginname']."</h2>";
 		$mysql_server_name="127.0.0.1:3306"; //server name
 		$mysql_username="root"; // username
 		$mysql_password="root"; // password
@@ -14,17 +14,18 @@
 		}
 		
 		
-		
-		echo "<p><a href=\"./newproject.php\"><input type=\"button\" value=\"Create New Projects\"></input></a></p>";
-		echo "<p><a href=\"./charge.php\"><input type=\"button\" value=\"Go to my charge record\"></input></a></p>";
-		echo "<p><a href=\"./useredit.php\"><input type=\"button\" value=\"Edit My Profile\"></input></a></p>";
-		echo "<p><a href=\"./logout.php\"><input type=\"button\" value=\"Log Out\"></input></a></p>";
-		echo "<p><a href=\"./acthistory.php\"><input type=\"button\" value=\"Activity History\"></input></a></p>";
-		echo "<form action='browse.php' method='post' id='sertable'>";
-		echo "<p>Keyword: <input type='text' name='keyword'></p>";
-		echo "<p><input type='submit' value='Develop!',name='find'></p>";
-		echo "</form>";
 
+		echo "<p id='newproject'><a href=\"./newproject.php\"><input type=\"button\" value=\"Create New Projects\"></input></a></p>";
+		echo "<p id='charge'><a href=\"./charge.php\"><input type=\"button\" value=\"Go to my charge record\"></input></a></p>";
+		echo "<p id='edit'><a href=\"./useredit.php\"><input type=\"button\" value=\"Edit My Profile\"></input></a></p>";
+		echo "<p id='logout' ><a href=\"./logout.php\"><input type=\"button\" value=\"Log Out\"></input></a></p>";
+		echo "<p id='acthistory'><a href=\"./acthistory.php\"><input type=\"button\" value=\"Activity History\"></input></a></p>";
+		
+		echo "<form action='browse.php' method='post' id='sertable'>";
+		echo "<p>Keyword: <input type='text' name='keyword'>    ";
+		echo "<input type='submit' value='Develop!',name='find'></p>";
+		echo "</form>";
+		
 		
 		if(!empty($_POST['find'])){
 			echo $_POST['keyword'];
@@ -52,12 +53,13 @@
 				echo "<tr><td><p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p></td></tr>";
 			}
 		}
-		echo "</table>";
+
+		echo "</table id='pledge'>";
 		// Pledge List
 		$pledge_sql = "SELECT * FROM PLEDGE WHERE loginname=\"".$_SESSION['loginname']."\"";
 		$pledge_result = $con->query($pledge_sql);
-		echo "<p>My PLEDGE:</p>";
-		echo "<table id='myple'><tr> <th>Project</th> <th>Founder</th> <th>Pledge Time</th><th>Amount</th></tr>";
+		echo "<b>My PLEDGE:</b>";
+		echo "<table><tr> <th>Project</th> <th>Founder</th> <th>Pledge Time</th><th>Amount</th></tr>";
 		if ($pledge_result->num_rows > 0) {
 			while($row = $pledge_result->fetch_assoc()) {
 				echo "<tr>";
@@ -84,29 +86,39 @@
 		// Follow action
 		$act_sql1 = "SELECT *
     FROM DISCUSS, `USER` WHERE USER.loginname=DISCUSS.loginname AND USER.loginname IN (
-        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\")";
+        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\") ORDER BY commenttime DESC";
 		$act_sql2 = "SELECT *
     FROM PROJECT, `USER` WHERE USER.loginname=PROJECT.loginname AND USER.loginname IN (
-        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\")";
+        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\") ORDER BY posttime DESC";
 		$act_sql3 = "SELECT *
 	FROM PLEDGE, `USER` WHERE USER.loginname=PLEDGE.loginname AND USER.loginname IN (
-        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\")";
+        SELECT bfname FROM FOLLOW WHERE fname=\"".$_SESSION['loginname']."\") ORDER BY pledgetime DESC";
 		$act_result1 = $con->query($act_sql1);
 		$act_result2 = $con->query($act_sql2);
 		$act_result3 = $con->query($act_sql3);
-		echo "<p>My Follow News</p>";
+		echo "<b>My Follow News</b>";
+		
 		if ($act_result1->num_rows > 0) {
+			$count=0;
 			while($row = $act_result1->fetch_assoc()) {
+				$count=$count + 1;
+				if ($count > 3) {break;}
 				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> comment <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 		if ($act_result2->num_rows > 0) {
+			$count=0;
 			while($row = $act_result2->fetch_assoc()) {
+				$count=$count + 1;
+				if ($count > 3) {break;}
 				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> create Project: <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
 		if ($act_result3->num_rows > 0) {
+			$count=0;
 			while($row = $act_result3->fetch_assoc()) {
+				$count=$count + 1;
+				if ($count > 3) {break;}
 				echo "<p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["username"]."</a> pledge <a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p>";
 			}
 		}
@@ -137,7 +149,7 @@
 			}
 		}
 		$projarr = array_flip(array_flip($projarr));
-		echo "<table id='myrecom'><tr> <th>Recommed this project to you:</th></tr>";
+		echo "<table id='myrecom'><tr> <th>Recommed projects</th></tr>";
 		foreach ($projarr as $recom_proj){ 
 		    echo "<tr><td><a href='displayproject.php?projectname=".$recom_proj."'>".$recom_proj."</a></td></tr>";
 		} 
@@ -156,35 +168,64 @@
 	
 	</body>
 	<style>
+	
+	    #newproject{
+			position:absolute;
+			top:  50px;
+			right:  750px;
+
+			}
+		#charge{
+			position:absolute;
+			top:  50px;
+			right:  500px;
+
+			}
+		#edit{
+			position:absolute;
+			top:  50px;
+			right:  350px;
+
+			} 
+		#logout{
+			position:absolute;
+			top:  50px;
+			right:  50px;
+
+			} 
+		#acthistory{
+			position:absolute;
+			top:  50px;
+			right:  200px;
+
+			} 
 		#mypro{
 			position:absolute;
-			top:  100px;
+			top:  200px;
 			right:  50px;
 
 			} 
 		#myfoll{
 			position:absolute;
-			top:  100px;
+			top:  200px;
 			right:  300px;
 
 			} 
 		#mylike{
 			position:absolute;
-			top:  100px;
+			top:  200px;
 			right:  550px;
 
 			} 
 		#sertable{
-			position:absolute;
-			top:  100px;
-			left:  350px;
+			 margin:2cm 0cm 2cm 0cm;
 
 			} 
 			
 		#myrecom{
 			position:absolute;
-			top:  300px;
-			right: 550px;
+			top:  200px;
+			right: 700px;
 
 			} 
 	</style>
