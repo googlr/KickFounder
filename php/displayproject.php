@@ -36,10 +36,21 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 } else {
   echo "<h2>Here is the information of the project:</h2>";
   while ($row = mysqli_fetch_array($result_display_project)) {
+	$founder_sql = "SELECT * FROM PROJECT,USER WHERE project.loginname=user.loginname AND PROJECT.projectname=\"".$_GET['projectname']."\"";
+	$founder_result = $con->query($founder_sql);  
+	while($row_foun = $founder_result->fetch_assoc()) { 
+		echo "<p>The founder of this project is: <a href='userpage.php?uloginname=".$row_foun["loginname"]."'>".$row_foun["username"]."</a></p>";
+	}  
+	  
+	  
     echo "<p>Project name: ".$row["projectname"]."</p>";
     echo "<p>Project description: ".$row["description"]."</p>";
     echo "<p>Project status: '".$row["projectstatus"]."'</p>";
-
+	if ($row["projectstatus"]=='successed' && $_SESSION['loginname']==$row["loginname"]) {
+		$update_sql="UPDATE PROJECT SET projectstatus='complete' WHERE projectname='".$_GET['projectname']."'";
+		mysqli_query($con, $update_sql);		
+		echo "<p><a href='displayproject.php?projectname=".$_GET['projectname']."'>Change status to complete? Click me!</a></p>";
+	}
     //TAG
     //display tags of project
     $sql_get_project_tag = "SELECT * from TAG WHERE projectname = '$projectname';";
@@ -51,7 +62,7 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     echo "</p>";
     //user could also add tag of project
 	$tag_button = "<form action='new_tag.php?projectname=".$projectname."' method='POST' >
-                              <input type=\"text\" pattern='[A-Za-z]' name=\"tag\">
+                              <input type=\"text\" pattern=\"[A-z]{1,10}\" name=\"tag\">
 							  <input type=\"submit\" name=\"submittag\" value=\"Add Tag\">
                             </form>";
     echo $tag_button."<br>";

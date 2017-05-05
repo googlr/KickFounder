@@ -17,7 +17,7 @@ session_start();
 		die("Database connect_error: " . $con->connect_error);
 		}
 $pledge_sql = "INSERT INTO PLEDGE VALUES('".$_SESSION['loginname']."', '".$_GET['projectname']."', NOW(),  '".$_POST["pledge"]."');";
-echo $pledge_sql;
+echo "<p>pledge success</p>";
 mysqli_query($con, $pledge_sql);
 echo "<p><a href='displayproject.php?projectname=".$_GET['projectname']."'>Back To Project!</a></p>";
 

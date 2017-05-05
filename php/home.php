@@ -59,12 +59,11 @@
 		$pledge_sql = "SELECT * FROM PLEDGE WHERE loginname=\"".$_SESSION['loginname']."\"";
 		$pledge_result = $con->query($pledge_sql);
 		echo "<b>My PLEDGE:</b>";
-		echo "<table><tr> <th>Project</th> <th>Founder</th> <th>Pledge Time</th><th>Amount</th></tr>";
+		echo "<table><tr> <th>Project</th><th>Pledge Time</th><th>Amount</th></tr>";
 		if ($pledge_result->num_rows > 0) {
 			while($row = $pledge_result->fetch_assoc()) {
 				echo "<tr>";
 				echo "<td><p><a href='displayproject.php?projectname=".$row["projectname"]."'>".$row["projectname"]."</a></p></td>";
-				echo "<td><p><a href='userpage.php?uloginname=".$row["loginname"]."'>".$row["loginname"]."</a></p></td>";
 				echo "<td><p>".$row["pledgetime"]."</p></td>";
 				echo "<td><p>".$row["amount"]."</p></td>";
 				echo "</tr>";
