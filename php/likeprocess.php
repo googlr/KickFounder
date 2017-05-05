@@ -17,7 +17,6 @@ session_start();
 		die("Database connect_error: " . $con->connect_error);
 		}
 	$like_sql = "INSERT INTO `LIKE` VALUES('".$_SESSION['loginname']."', '".$_GET['projectname']."');";
-	echo $like_sql;
 	mysqli_query($con, $like_sql);
 	echo "<p><a href='displayproject.php?projectname=".$_GET['projectname']."'>Back To Project!</a></p>";
 

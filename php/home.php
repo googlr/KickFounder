@@ -136,8 +136,7 @@
 			while($row = $rec_result->fetch_assoc()) {
 
 				$rec_proj_sql="SELECT projectname FROM tag where tagname='".$row["tagname"]."' AND projectname not in 
-				    (SELECT Project.projectname FROM `LIKE`, project
-					    where `LIKE`.loginname=Project.loginname AND `LIKE`.loginname='".$_SESSION['loginname']."')";
+				    (SELECT projectname FROM `LIKE` where `LIKE`.loginname='".$_SESSION['loginname']."')";
 				$rec_proj_result=$con->query($rec_proj_sql);
 				if ($rec_proj_result->num_rows > 0) {
 					while($row_proj = $rec_proj_result->fetch_assoc()) {

@@ -181,7 +181,7 @@ while ($row = mysqli_fetch_array($status_result)) {
 		}
 
 //List all comments
-echo "<h2>Comment:</h2>";
+echo "<b>Comment:</b>";
 $sql_display_comment = "select * from DISCUSS,USER WHERE DISCUSS.loginname=USER.loginname AND DISCUSS.projectname = '$projectname'; ";
 $result_display_comment = $con->query($sql_display_comment);
 while ($row_comment = mysqli_fetch_array($result_display_comment)) {
@@ -194,10 +194,11 @@ echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back\" class='bac
 $fig_sql = "SELECT * FROM MATERIAL WHERE projectname='".$projectname."'";
 $fig_result = $con->query($fig_sql);
 	if ($fig_result->num_rows > 0) {
-		echo "<p>Proejct material</p>";
+		echo "<b>Project material</b>";
 		while($row = $fig_result->fetch_assoc()) {
 			
 			echo '<p><img height="100px" height="100px" src="data:image/jpeg;base64,'.base64_encode( $row['file'] ).'"/></p>';
+			echo "<p>Figure Description: ".$row['matdes']."<p>";
 		}
 	}
 ?>

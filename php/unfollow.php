@@ -16,7 +16,7 @@
 		$unfollow_sql = "DELETE FROM FOLLOW WHERE bfname=\"".$_GET['uloginname']."\" AND fname=\"".$_SESSION["loginname"]."\"";
 		$unfollow_result = $con->query($unfollow_sql);
 		echo "<p><a href='userpage.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Back\"></input></a></p>";
-		echo $_GET['uloginname'];
+		//echo $_GET['uloginname'];
 		
 		
 	?>

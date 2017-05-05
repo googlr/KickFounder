@@ -16,7 +16,7 @@
 		$follow_sql = "INSERT INTO `FOLLOW` VALUES ('".$_SESSION["loginname"]."','".$_GET['uloginname']."')";
 		$follow_result = $con->query($follow_sql);
 		echo "<p><a href='userpage.php?uloginname=".$_GET['uloginname']."'><input type=\"button\" value=\"Back\"></input></a></p>";
-		echo $_GET['uloginname'];
+		//echo $_GET['uloginname'];
 		
 		
 	?>
