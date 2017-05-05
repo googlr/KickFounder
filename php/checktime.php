@@ -9,12 +9,12 @@
 	$con = new mysqli($mysql_server_name, $mysql_username, $mysql_password, $mysql_database);
 	if ($con->connect_error) {
 		die("Database connect_error: " . $con->connect_error);
-		}
-	    $sql_pledge_check1 = "UPDATE PROJECT SET projectstatus = 'succeed' 
+	}
+	$sql_pledge_check1 = "UPDATE PROJECT SET projectstatus = 'succeed' 
             WHERE projectstatus='ongoing' AND
             NOW()>=endtime AND
             (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=Project.projectname) >= Project.minfund";
-        $sql_pledge_check2 = "UPDATE PROJECT SET projectstatus = 'failed' 
+    $sql_pledge_check2 = "UPDATE PROJECT SET projectstatus = 'failed' 
             WHERE projectstatus='ongoing' AND
             NOW()>=endtime AND
             (SELECT SUM(amount) FROM PLEDGE WHERE PLEDGE.projectname=Project.projectname) < Project.minfund";

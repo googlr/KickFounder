@@ -45,7 +45,16 @@ session_start();
 			}
 		}
 		echo "</table>";
-		echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Back To Home\"></input></a></p>";
+		echo "<p id='back'><a href=\"./home.php\"><input type=\"button\" value=\"Back To Home\"></input></a></p>";
 ?>
 </body>
+
+<style>
+       #back{
+			position:fixed;
+			right:100px;
+			top:150px;
+			}
+
+</style>
 </html>
