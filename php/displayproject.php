@@ -36,7 +36,7 @@ echo "Database compromised, Projectname is duplicated"."<br>";
 } else {
   echo "<h2>Here is the information of the project:</h2>";
   while ($row = mysqli_fetch_array($result_display_project)) {
-	$founder_sql = "SELECT * FROM PROJECT,USER WHERE project.loginname=user.loginname AND PROJECT.projectname=\"".$_GET['projectname']."\"";
+	$founder_sql = "SELECT * FROM PROJECT,USER WHERE project.loginname=user.loginname AND PROJECT.projectname=\"".$projectname."\"";
 	$founder_result = $con->query($founder_sql);  
 	while($row_foun = $founder_result->fetch_assoc()) { 
 		echo "<p>The founder of this project is: <a href='userpage.php?uloginname=".$row_foun["loginname"]."'>".$row_foun["username"]."</a></p>";
@@ -47,10 +47,21 @@ echo "Database compromised, Projectname is duplicated"."<br>";
     echo "<p>Project description: ".$row["description"]."</p>";
     echo "<p>Project status: '".$row["projectstatus"]."'</p>";
 	if ($row["projectstatus"]=='successed' && $_SESSION['loginname']==$row["loginname"]) {
-		$update_sql="UPDATE PROJECT SET projectstatus='complete' WHERE projectname='".$_GET['projectname']."'";
+		$update_sql="UPDATE PROJECT SET projectstatus='complete' WHERE projectname='".$projectname."'";
 		mysqli_query($con, $update_sql);		
-		echo "<p><a href='displayproject.php?projectname=".$_GET['projectname']."'>Change status to complete? Click me!</a></p>";
+		echo "<p><a href='displayproject.php?projectname=".$projectname."'>Change status to complete? Click me!</a></p>";
 	}
+	echo "<p>Project minimum fund: ".$row["minfund"]."$</p>";
+	echo "<p>Project maximum fund: ".$row["maxfund"]."$</p>";
+	$current_ple_sql="SELECT SUM(amount) AS sumple FROM PLEDGE WHERE projectname='".$projectname."'";
+	$current_ple_result = $con->query($current_ple_sql);
+	while($row_ple = $current_ple_result->fetch_assoc()) { 
+		echo "<p>Project Now Have: ".$row_ple["sumple"]."$</p>";
+	}
+	
+	
+	echo "<p>End for funding date: '".$row["endtime"]."'</p>";
+	echo "<p>Finish project date: '".$row["plantime"]."'</p>";
     //TAG
     //display tags of project
     $sql_get_project_tag = "SELECT * from TAG WHERE projectname = '$projectname';";
@@ -67,13 +78,6 @@ echo "Database compromised, Projectname is duplicated"."<br>";
                             </form>";
     echo $tag_button."<br>";
 	
-	
-	
-	
-
-    
-
-
     //if user is owner of project, display upload option
     if($loginname == $row['loginname']){
         $upload_button = "<form action=\"new_upload_file.php?projectname=".$projectname."\" method=\"POST\" enctype=\"multipart/form-data\">
@@ -166,7 +170,7 @@ while ($row = mysqli_fetch_array($status_result)) {
 
 // Like this project
 //check if user already likeed
-	$like_check_sql = "SELECT * FROM `LIKE` WHERE projectname=\"".$_GET['projectname']."\" AND loginname=\"".$_SESSION["loginname"]."\"";
+	$like_check_sql = "SELECT * FROM `LIKE` WHERE projectname=\"".$projectname."\" AND loginname=\"".$_SESSION["loginname"]."\"";
 	$like_result = $con->query($like_check_sql);
 		if ($like_result->num_rows < 1) {
 			echo "<p><a href='likeprocess.php?projectname=".$projectname."'><input type='button' value='Like This Project'></input></a></p>";

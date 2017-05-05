@@ -1,6 +1,6 @@
 <?php 
 session_start();
-echo "SESSION START!"; 
+//echo "SESSION START!"; 
 if( ! isset($_SESSION['loginname']) )
   $_SESSION['loginname'] = $_POST["loginname"];
 ?>
