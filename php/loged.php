@@ -15,16 +15,16 @@
 		$loginname = $_POST["loginname"];
 		$password = $_POST["password"];
 		/* Prepared statement, stage 1: prepare */
-		if (!($stmt = $con->prepare("SELECT loginname FROM USER WHERE loginname=? AND password=?"))) {
+		if (!($stmt = $con->prepare("SELECT * FROM USER WHERE loginname=?"))) {
     		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
 		//bind the variables to the stmt
-		$stmt -> bind_param("ss",$loginname, $password);
+		$stmt -> bind_param("s",$loginname);
 		//execute
 		$stmt ->execute();
 		$res = $stmt->get_result();
-		$row = $res->fetch_assoc();
+		
 
 		/*
 		//check if user exist
@@ -32,16 +32,26 @@
 		$user_result = $con->query($user_check_sql);
 		*/
 		//if ($user_result->num_rows < 1) {
-		if ($res->num_rows < 1) {
-			echo "Your password or username is incorrect";
-			echo "<p><a href=\"./index.php\"><input type=\"button\" value=\"Back to the Login page!\"></input></a></p>";
+		if ($res->num_rows > 0) {
+			while($row = $res->fetch_assoc()) {
+				if(password_verify($password, $row["password"])) {
+					echo "Login Success!";
+					// store customer name as session value
+					session_start();
+					$_SESSION['loginname'] = $_POST["loginname"];
+					echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Go to Home\"></input></a></p>";
+				}
+				else {
+					echo "Your password or username is incorrect";
+					echo "<p><a href=\"./index.php\"><input type=\"button\" value=\"Back to the Login page!\"></input></a></p>";
+				}
+			}
+			
 		}
 		else {
-			echo "Login Success!";
-			// store customer name as session value
-			session_start();
-			$_SESSION['loginname'] = $_POST["loginname"];
-			echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Go to Home\"></input></a></p>";
+			
+			echo "Your password or username is incorrect";
+			echo "<p><a href=\"./index.php\"><input type=\"button\" value=\"Back to the Login page!\"></input></a></p>";
 			
 		}
 

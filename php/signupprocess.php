@@ -14,6 +14,9 @@
 		$username = test_input( $_POST["username"] );
 		$loginname = test_input( $_POST["loginname"] );
 		$password = test_input( $_POST["password"] );
+		// hash password
+		$password = password_hash($password, PASSWORD_DEFAULT);
+		
 
 		$mysql_server_name="127.0.0.1:3306"; //server name
 		$mysql_username="root"; // username
@@ -30,6 +33,7 @@
 			echo "User already exist!";
 		}
 		else {
+			echo $password;
 			$insert_user_sql = "INSERT INTO `USER`(`loginname`, `username`, `password`) VALUES('".$loginname."','".$username."','".$password."')";
 			mysqli_query($con, $insert_user_sql);
 			echo "Sign Up Success!";
