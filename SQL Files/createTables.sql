@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `USER`;
 CREATE TABLE `USER` (
   `loginname` varchar(40) NOT NULL,
   `username` varchar(40) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `say` varchar(255) DEFAULT NULL,
   `hometown` varchar(40) DEFAULT NULL,
   `interests` varchar(40) DEFAULT NULL,
