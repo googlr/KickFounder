@@ -1,8 +1,28 @@
 <!DOCTYPE html>
+<?php 
+session_start();
+
+?>
+
 <html>
 	<body>
 	<?php
-	    session_start();
+	    if (isset($_COOKIE["user"])) {
+			$_SESSION['loginname'] = $_COOKIE["user"];
+		}
+            
+        else {
+			if (isset($_SESSION['loginname'])) {
+				$myuser = $_SESSION['loginname'];
+			}
+			else {
+				echo "<p><a href=\"./index.php\"><input type=\"button\" value=\"Back to the Login page!\"></input></a></p>";
+				die("Session or Cookie Error!");
+				exit();
+			}
+			
+		}
+            
 		echo "<h2>User Home: ".$_SESSION['loginname']."</h2>";
 		$mysql_server_name="127.0.0.1:3306"; //server name
 		$mysql_username="root"; // username
@@ -156,13 +176,6 @@
 	?>
 	
 
-	
-	
-	
-	
-	
-	
-	
 	
 	</body>
 	<style>

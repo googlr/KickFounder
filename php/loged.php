@@ -39,6 +39,7 @@
 					// store customer name as session value
 					session_start();
 					$_SESSION['loginname'] = $_POST["loginname"];
+					setcookie("user", $_SESSION['loginname'], time()+3600);
 					echo "<p><a href=\"./home.php\"><input type=\"button\" value=\"Go to Home\"></input></a></p>";
 				}
 				else {
