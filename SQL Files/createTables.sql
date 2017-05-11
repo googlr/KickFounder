@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `USERACT`;
 CREATE TABLE `USERACT` (
   `loginname` varchar(40) NOT NULL,
   `acttime` DATETIME NOT NULL,
-  `acttype` varchar(40) NOT NULL, # tag, search, project
+  `acttype` varchar(40) NOT NULL, # search, vispro, visusr
   `actvalue` varchar(60) NOT NULL,
   PRIMARY KEY (`loginname`, `acttime`),
   FOREIGN KEY (`loginname`) REFERENCES `USER` (`loginname`)
