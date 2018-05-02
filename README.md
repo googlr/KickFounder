@@ -12,6 +12,12 @@ In addition, the platform provide attractive social features, users can leave th
     2. HTML input attribute(type, pattern, maxlength)
     3. Manual test of input
 
+## Database Design Schema
+![Database Design Schema](https://github.com/googlr/KickFounder/blob/master/figures/DatabaseDesignSchema.jpg)
+
+## Data Flow Diagram of Kickfounder
+![Data Flow Diagram of Kickfounder](https://github.com/googlr/KickFounder/blob/master/figures/DataFlowDiagramOfKickfounder.jpg)
+
 ## A few words from the co-founders and future work
 > In this project, we have designed the schema from scratch and implemented a functional website for crowdfunding. Instead of making a toy model, we think from the perspective of various real-world situations and aim to make the website practical and robust.
 
