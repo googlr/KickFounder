@@ -15,7 +15,7 @@ In addition, the platform provide attractive social features, users can leave th
 ## Database Design Schema
 ![Database Design Schema](https://github.com/googlr/KickFounder/blob/master/figures/DatabaseDesignSchema.jpg)
 
-## Data Flow Diagram of Kickfounder
+## Data Flow Diagram
 ![Data Flow Diagram of Kickfounder](https://github.com/googlr/KickFounder/blob/master/figures/DataFlowDiagramOfKickfounder.jpg)
 
 ## A few words from the co-founders and future work
